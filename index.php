@@ -21,7 +21,7 @@ if ($id_page_courante === null && !empty($pages)) {
 }
 
 // --- 3. GESTION DE LA PAGINATION DES PHOTOS ---
-$photos_par_page = 6; // Nombre de photos à afficher par page (changez si besoin)
+$photos_par_page = 6; // Nombre de photos à afficher par page
 $page_pagination_courante = isset($_GET['p']) ? (int)$_GET['p'] : 1;
 if ($page_pagination_courante < 1) {
     $page_pagination_courante = 1;
@@ -35,7 +35,7 @@ $offset = ($page_pagination_courante - 1) * $photos_par_page;
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Album Photo M2L</title>
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="style.css"> 
 </head>
 <body>
     <div class="container">
@@ -83,7 +83,7 @@ $offset = ($page_pagination_courante - 1) * $photos_par_page;
             // Filtre de statut
             $statut_photo_filtre = est_admin() ? "'ACTIF', 'ARCHIVE'" : "'ACTIF'";
             
-            // --- 4. REQUÊTE POUR COMPTER LE TOTAL DES PHOTOS ---
+            // REQUÊTE POUR COMPTER LE TOTAL DES PHOTOS
             $req_total = $connexion->prepare("
                 SELECT COUNT(*) 
                 FROM PHOTO 
@@ -95,7 +95,7 @@ $offset = ($page_pagination_courante - 1) * $photos_par_page;
             $total_photos = $req_total->fetchColumn();
             $total_pages_pagination = ceil($total_photos / $photos_par_page);
 
-            // --- 5. REQUÊTE POUR RÉCUPÉRER LES PHOTOS DE LA PAGE ACTUELLE (avec LIMIT et OFFSET) ---
+            // REQUÊTE POUR RÉCUPÉRER LES PHOTOS DE LA PAGE ACTUELLE (avec LIMIT et OFFSET)
             $req_photos = $connexion->prepare("
                 SELECT id_photo, emplacement_photo, legende_photo, statut_suppression, id_utilisateur
                 FROM PHOTO 
@@ -133,7 +133,7 @@ $offset = ($page_pagination_courante - 1) * $photos_par_page;
                     <h4>Commentaires</h4>
                     
                     <?php
-                    // Requête des commentaires (inchangée)
+                    // Requête des commentaires
                     $statut_com_filtre = est_admin() ? "'ACTIF', 'ARCHIVE'" : "'ACTIF'";
                     $req_commentaires = $connexion->prepare("
                         SELECT C.id_commentaire, C.texte_commentaire, C.date_commentaire, C.id_utilisateur, C.statut_suppression, U.nom
