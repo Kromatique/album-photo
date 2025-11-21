@@ -1,8 +1,7 @@
 <?php
-// purge_archives.php (À exécuter régulièrement via un CRON JOB)
 include 'config.php';
 
-// Délai en jours (15 pour la prod, 2/1440 pour le test en minutes) [cite: 28, 30]
+// Délai de suppression des archives
 $delai_jours = 2 / (60 * 24); 
 
 $tables = ['PHOTO', 'COMMENTAIRE'];

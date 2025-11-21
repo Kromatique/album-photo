@@ -1,9 +1,6 @@
 <?php
-// admin_pages.php
 include 'config.php';
 
-// --- 1. SÉCURITÉ ---
-// Seuls les administrateurs peuvent accéder à cette page
 if (!est_admin()) {
     header('Location: index.php');
     exit;
@@ -14,7 +11,6 @@ $message_succes = "";
 $mode_edition = false;
 $page_a_editer = null;
 
-// --- 2. GESTION DES ACTIONS POST (Ajout, Modification, Suppression) ---
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     
@@ -50,7 +46,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (isset($_POST['action']) && $_POST['action'] === 'supprimer') {
         $id_page = (int)$_POST['id_page'];
         
-        // Sécurité : Vérifier si la page contient des photos avant de la supprimer
         $req_verif = $connexion->prepare("SELECT COUNT(*) FROM PHOTO WHERE id_page = :id_page");
         $req_verif->bindParam(':id_page', $id_page, PDO::PARAM_INT);
         $req_verif->execute();
@@ -67,7 +62,7 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     }
 }
 
-// --- 3. GESTION DU MODE ÉDITION (via GET) ---
+// --- 3. GESTION DU MODE ÉDITION ---
 
 if (isset($_GET['edit_id'])) {
     $mode_edition = true;
@@ -84,7 +79,6 @@ if (isset($_GET['edit_id'])) {
     }
 }
 
-// --- 4. RÉCUPÉRER TOUTES LES PAGES POUR AFFICHAGE ---
 $req_pages = $connexion->query("SELECT id_page, intitule_page FROM PAGE ORDER BY id_page");
 $pages = $req_pages->fetchAll(PDO::FETCH_ASSOC);
 
@@ -97,7 +91,7 @@ $pages = $req_pages->fetchAll(PDO::FETCH_ASSOC);
     <title>Gestion des Pages - Admin</title>
     <link rel="stylesheet" href="style.css">
     <style>
-        /* Styles spécifiques pour la page admin */
+        
         .admin-gestion-page {
             display: flex;
             justify-content: space-between;

@@ -1,8 +1,6 @@
 <?php
-// ajout_photo.php (Version avec UPLOAD de fichier SANS LIMITE DE TAILLE PHP)
 include 'config.php'; 
 
-// Rediriger si non connecté
 if (!est_connecte()) {
     header('Location: connexion.php');
     exit;
@@ -11,22 +9,17 @@ if (!est_connecte()) {
 $message_erreur = "";
 $message_succes = "";
 
-// --- PARAMÈTRES D'UPLOAD ---
 $dossier_upload = 'photos/';
-// La taille maximale est maintenant gérée uniquement par le fichier php.ini du serveur.
 $formats_autorises = ['jpg' => 'image/jpeg', 'png' => 'image/png', 'gif' => 'image/gif'];
 
-// --- Traitement de l'ajout de Photo ---
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $legende_photo = trim($_POST['legende_photo']);
     $id_page = (int)$_POST['id_page'];
     $id_utilisateur = $_SESSION['id_utilisateur'];
 
-    // Vérification de base
     if (empty($legende_photo) || empty($id_page) || empty($_FILES['fichier_photo']['name'])) {
         $message_erreur = "Veuillez remplir tous les champs et sélectionner un fichier.";
     } else {
-        // VÉRIFICATIONS DU FICHIER UPLOADÉ
         $fichier_info = $_FILES['fichier_photo'];
         $nom_fichier = $fichier_info['name'];
         $type_fichier = $fichier_info['type'];
@@ -34,7 +27,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         
         $extension = strtolower(pathinfo($nom_fichier, PATHINFO_EXTENSION));
 
-        // 1. Erreur d'Upload (PHP)
         if ($fichier_info['error'] !== UPLOAD_ERR_OK) {
             $message_erreur = "Erreur lors de l'upload du fichier (Code: " . $fichier_info['error'] . ").";
         } 
@@ -43,21 +35,17 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
             $message_erreur = "Seuls les formats JPG, PNG et GIF sont autorisés.";
         }
         else {
-            // TOUT EST OK : GESTION DU NOM ET DÉPLACEMENT
             
             // Générer un nom de fichier unique et sécurisé pour éviter les conflits et les injections
             $nouveau_nom_fichier = uniqid('photo_', true) . '.' . $extension;
             $destination = $dossier_upload . $nouveau_nom_fichier;
 
-            // Créer le dossier 'photos/' s'il n'existe pas
             if (!is_dir($dossier_upload)) {
                 mkdir($dossier_upload, 0777, true);
             }
 
-            // Déplacement du fichier temporaire vers la destination finale
             if (move_uploaded_file($tmp_path, $destination)) {
                 
-                // INSÉRER EN BASE DE DONNÉES
                 try {
                     $stmt = $connexion->prepare("
                         INSERT INTO PHOTO (emplacement_photo, legende_photo, id_page, id_utilisateur) 
@@ -75,7 +63,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
                     exit;
 
                 } catch (PDOException $e) {
-                    // En cas d'échec d'insertion en BDD, supprimer le fichier du serveur
                     if (file_exists($destination)) {
                         unlink($destination);
                     }
@@ -88,7 +75,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     } 
 } 
 
-// Récupérer les pages pour le menu déroulant
 $req_pages = $connexion->query("SELECT id_page, intitule_page FROM PAGE ORDER BY id_page");
 $pages = $req_pages->fetchAll(PDO::FETCH_ASSOC);
 ?>
