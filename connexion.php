@@ -42,7 +42,6 @@ if (isset($_POST['action']) && $_POST['action'] === 'connexion') {
 }
 
 // --- Traitement de l'INSCRIPTION ---
-// Nous ajoutons l'inscription pour que les utilisateurs non-admin puissent exister et poster
 if (isset($_POST['action']) && $_POST['action'] === 'inscription') {
     $nom = trim($_POST['nom']);
     $email = trim($_POST['email']);
@@ -72,48 +71,57 @@ if (isset($_POST['action']) && $_POST['action'] === 'inscription') {
 }
 ?>
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Connexion / Inscription</title>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body>
-    <h1>Connexion et Inscription</h1>
-    <p><a href="index.php">Retour à l'accueil</a></p>
+    <div class="container">
+        <h1>Connexion et Inscription</h1>
+        <p><a href="index.php">Retour à l'accueil</a></p>
 
-    <?php if ($message_erreur): ?>
-        <p style="color:red;"><?php echo $message_erreur; ?></p>
-    <?php endif; ?>
-    <?php if ($message_succes): ?>
-        <p style="color:green;"><?php echo $message_succes; ?></p>
-    <?php endif; ?>
+        <?php if ($message_erreur): ?>
+            <p class="message message-erreur"><?php echo $message_erreur; ?></p>
+        <?php endif; ?>
+        <?php if ($message_succes): ?>
+            <p class="message message-succes"><?php echo $message_succes; ?></p>
+        <?php endif; ?>
 
-    <h2>Connexion</h2>
-    <form method="POST">
-        <input type="hidden" name="action" value="connexion">
-        <label for="email_c">Email :</label><br>
-        <input type="email" id="email_c" name="email" required><br><br>
-        
-        <label for="mdp_c">Mot de passe :</label><br>
-        <input type="password" id="mdp_c" name="mot_de_passe" required><br><br>
-        
-        <input type="submit" value="Se connecter">
-    </form>
+        <div class="connexion-container">
+            <div class="connexion-col">
+                <h2>Connexion</h2>
+                <form method="POST">
+                    <input type="hidden" name="action" value="connexion">
+                    <label for="email_c">Email :</label>
+                    <input type="email" id="email_c" name="email" required>
+                    
+                    <label for="mdp_c">Mot de passe :</label>
+                    <input type="password" id="mdp_c" name="mot_de_passe" required>
+                    
+                    <input type="submit" value="Se connecter">
+                </form>
+            </div>
 
-    <hr>
+            <div class="connexion-col">
+                <h2>Inscription</h2>
+                <form method="POST">
+                    <input type="hidden" name="action" value="inscription">
+                    <label for="nom_i">Nom :</label>
+                    <input type="text" id="nom_i" name="nom" required>
 
-    <h2>Inscription</h2>
-    <form method="POST">
-        <input type="hidden" name="action" value="inscription">
-        <label for="nom_i">Nom :</label><br>
-        <input type="text" id="nom_i" name="nom" required><br><br>
-
-        <label for="email_i">Email :</label><br>
-        <input type="email" id="email_i" name="email" required><br><br>
-        
-        <label for="mdp_i">Mot de passe :</label><br>
-        <input type="password" id="mdp_i" name="mot_de_passe" required><br><br>
-        
-        <input type="submit" value="S'inscrire">
-    </form>
+                    <label for="email_i">Email :</label>
+                    <input type="email" id="email_i" name="email" required>
+                    
+                    <label for="mdp_i">Mot de passe :</label>
+                    <input type="password" id="mdp_i" name="mot_de_passe" required>
+                    
+                    <input type="submit" value="S'inscrire">
+                </form>
+            </div>
+        </div>
+    </div>
 </body>
 </html>
