@@ -1,8 +1,8 @@
 <?php
-// config.php
+
 $serveur = "localhost";
-$utilisateur = "root"; // À remplacer
-$mot_de_passe = ""; // À remplacer
+$utilisateur = "root"; 
+$mot_de_passe = ""; 
 $base_de_donnees = "album_photo";
 
 // Connexion à la base de données
@@ -13,10 +13,9 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-// Démarrer la session pour la gestion de l'utilisateur connecté
+// Démarrer la session 
 session_start();
 
-// Fonction simple pour simuler la connexion (à améliorer pour la sécurité)
 function est_connecte() {
     return isset($_SESSION['id_utilisateur']);
 }
