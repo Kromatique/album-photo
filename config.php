@@ -1,8 +1,7 @@
 <?php
-
 $serveur = "localhost";
-$utilisateur = "root"; 
-$mot_de_passe = ""; 
+$utilisateur = "root";
+$mot_de_passe = "";
 $base_de_donnees = "album_photo";
 
 // Connexion à la base de données
@@ -13,7 +12,6 @@ try {
     die("Erreur de connexion : " . $e->getMessage());
 }
 
-// Démarrer la session 
 session_start();
 
 function est_connecte() {

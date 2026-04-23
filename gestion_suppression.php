@@ -9,7 +9,7 @@ if (!est_connecte()) {
 
 $id_utilisateur_connecte = $_SESSION['id_utilisateur'];
 $est_admin = est_admin();
-$delai_archivage = 2 / (60 * 24); // 2 minutes en jours, passer à 15 jours (15) pour la prod.
+$delai_archivage = 2 / (60 * 24); // 2 minutes en jours (pour le test [cite: 30]), passer à 15 jours (15) pour la prod.
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $type = '';

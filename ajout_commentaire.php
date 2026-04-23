@@ -1,5 +1,4 @@
 <?php
-// ajout_commentaire.php
 include 'config.php'; 
 
 if (!est_connecte()) {
@@ -32,7 +31,6 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST' && isset($_POST['id_photo'], $_POST['t
         }
     }
 }
-// Retour à la page d'accueil si l'accès n'est pas correct
 header('Location: index.php');
 exit;
 ?>
