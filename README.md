@@ -1,4 +1,4 @@
-##Projet Album Photo M2L
+## Projet Album Photo M2L
 
 ### 1. Présentation du projet
 Le projet **Album Photo M2L** répond au besoin de la Maison des Ligues de Lorraine (M2L) de disposer d'une application interne permettant aux différents adhérents et clubs sportifs de partager et d'archiver visuellement leurs événements. L'application permet aux utilisateurs de publier des photos et de réagir en y ajoutant des commentaires sous forme de fils de discussion. Elle propose également une gestion de suppression sécurisée et temporaire (archivage) afin d'éviter les pertes de données accidentelles.
